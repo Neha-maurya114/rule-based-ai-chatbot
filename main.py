@@ -1,55 +1,124 @@
-#Rule Based AI Python ChatBot 
 
 import datetime
-import time
-
-name= input("Swagat h, enter your name : ")
-presentHour= datetime.datetime.now().hour
-
-if 5 <= presentHour <= 11: 
-    print("Good morning, ", name)
-elif 11 <= presentHour <= 17:
-    print("Good afternoon, ", name)
-elif 17 <= presentHour <= 20:
-    print("Good evening, ", name)
-else:
-    print("Good night, ", name)
 
 
+# Chatbot Memory
+user_memory = {}
 
-print("Namaste! Welcome to Your ChatBot")
-print("You can ask me basic question, Type 'bye' to exit from the bot")
 
-# Chatbot Memory Creation [ dictionary of responses ]
+# Knowledge Base
 
 responses = {
-    "hello": "Hi, welcome. How can I help you?",
-    "how are you": "I am very fine. Thank you",
-    "who are you": "I am smart AI chatbot",
-    "motivate me": "Keep going. Every bug of your project makes you a better developer",
-    "happy": "Great to hear that",
-    "functions kya hote hai": "jakar chapter 7 padho"
-} 
 
-# Method/Function to get response of ChatBot 
+    "hello": "Hi 😊 Welcome! How can I help you?",
+
+    "hi": "Hello 😊 Nice to meet you",
+
+    "how are you": 
+    "I am good 🤖 Thanks for asking. How can I help you?",
+
+    "who are you":
+    "I am your Personal AI Assistant created using Python and Flask",
+
+    "your name":
+    "You can call me AI Assistant 🤖",
+
+    "what can you do":
+    "I can answer your questions, help with Python, coding and basic information",
+
+    "python":
+    "Python is a high level programming language used in AI, web development and automation",
+
+    "flask":
+    "Flask is a lightweight Python framework used to create web applications",
+
+    "html":
+    "HTML is used to create the structure of web pages",
+
+    "css":
+    "CSS is used to design and style websites",
+
+    "javascript":
+    "JavaScript makes websites interactive",
+
+    "react":
+    "React is a JavaScript library used for building user interfaces",
+
+    "bca":
+    "BCA is a Bachelor degree related to computer applications and software development",
+
+    "dsa":
+    "DSA means Data Structures and Algorithms. It helps in problem solving",
+
+    "ai":
+    "AI means Artificial Intelligence. It enables machines to think and learn",
+
+    "machine learning":
+    "Machine Learning is a branch of AI where machines learn from data",
+
+    "motivate me":
+    "Keep learning 🚀 Every error makes you a better developer",
+
+    "happy":
+    "Great to hear that 😊 Keep smiling",
+
+    "sad":
+    "Don't worry. Keep improving and believe in yourself 💙",
+
+    "thank you":
+    "You are welcome 😊",
+
+    "bye":
+    "Goodbye 👋 Have a great day",
+
+    "date":
+    "Today is " + str(datetime.date.today()),
+
+}
+
 
 def getResponseOfBot(userQuestion):
-    userQuestion= userQuestion.lower()
-    for eachKey in responses:
-        if eachKey in userQuestion:
-            return responses[eachKey]
-
-    return "I am not able to tell that yet. Mai jald hi ye sikh lunga"    
-    
-
-# Take user input 
 
 
-while True:
-    userInput= input("Please ask your question:")
-    reply= getResponseOfBot(userInput)
-    print("Bot Response:", reply)
+    userQuestion = userQuestion.lower()
 
-    if "bye" in userInput.lower():
-        break
+
+
+    # Remember Name
+
+    if "my name is" in userQuestion:
+
+        name = userQuestion.replace("my name is","").strip()
+
+        user_memory["name"] = name
+
+        return "Nice to meet you " + name + " 😊"
+
+
+
+    # Greeting with saved name
+
+    if "my name" in userQuestion:
+
+        if "name" in user_memory:
+
+            return "Your name is " + user_memory["name"]
+
+        else:
+
+            return "I don't know your name yet"
+
+
+
+    # Find answer
+
+    for key in responses:
+
+        if key in userQuestion:
+
+            return responses[key]
+
+
+
+    return "Sorry 😅 I am still learning. Try asking something else."
     
